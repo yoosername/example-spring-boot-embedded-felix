@@ -1,0 +1,69 @@
+buildscript {
+	ext {
+        springBootVersion = '2.0.3.RELEASE'
+        springDependencyManagementVersion = '1.0.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+	id 'java' apply true
+	id 'eclipse' apply true
+	id 'application' apply true
+	id 'org.springframework.boot' version '2.0.3.RELEASE' apply true
+	id 'io.spring.dependency-management' version '1.0.5.RELEASE' apply true
+}
+
+defaultTasks 'build','copyFrameworkBundles'
+
+repositories {
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+mainClassName = 'com.example.App'
+
+configurations {
+    framework_bundles
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.apache.felix:org.apache.felix.framework:5.6.10')
+	compile('org.apache.felix:org.apache.felix.main:5.6.10')
+	//compile('org.apache.felix:org.apache.felix.fileinstall:3.6.4')
+	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	//framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.8.16"
+	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
+	//framework_bundles "org.apache.felix:org.apache.felix.http.jetty:3.4.8"
+	//framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
+	//framework_bundles "org.osgi:osgi.annotation:6.0.1"
+	//framework_bundles "org.osgi:osgi.extender:6.0.0"
+	//framework_bundles "org.osgi:osgi.cmpn:6.0.0"
+	//framework_bundles "org.osgi:osgi.core:6.0.0"
+	
+}
+
+task copyFrameworkBundles(type: Copy) {
+    from configurations.framework_bundles
+    
+    def folder = new File("$buildDir/bundled_plugins")
+
+	// If it doesn't exist
+	if( !folder.exists() ) {
+	  // Create all folders up-to and including B
+	  folder.mkdirs()
+	}
+
+    into folder
+}
+copyFrameworkBundles.group = "custom"

@@ -1,11 +1,24 @@
-TODO:
+# Example Spring Boot application running embedded Apache Felix OSGI Container
 
-Setup Gradle to:
+# Stuff To Do:
 
-Copy dependency bundles to /build/assembly/framework_bundles
-Copy sub modules to /build/assembly/framework_bundles
-Create a plugins folder at /build/assembly/plugins
-Copy ./scripts/start.sh to ./build/assembly/start.sh
-Create shaded Jar which auto runs spring boot which itself runs embedded Felix Framework
-Copy Jar to ./build/assembly/
-Create ZIP and tar.gz distributions from /build/assembly folder
+## Spring boot
+
+* Custom Banner
+* Setup logging (Logback)
+* Setup profiles and auto config
+* Create service to start Felix and have it run at container READY
+
+## Distribution
+
+* Create custom start.sh script
+
+
+## Gradle Setup
+
+* Copy OSGI framework dependency bundles to /framework_bundles
+* Create a plugins folder at /plugins
+* Copy ./scripts/start.sh to ./build/assembly/start.sh
+* Compile and build spring boot fat Jar
+* Assemble JAR and associated libs
+* Create ZIP and tar.gz distributions from /build/assembly folder

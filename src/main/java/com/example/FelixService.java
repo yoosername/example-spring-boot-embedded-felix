@@ -10,6 +10,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.felix.framework.FrameworkFactory;
+import org.apache.felix.main.AutoProcessor;
 import org.apache.felix.main.Main;
 import org.osgi.framework.Constants;
 import org.osgi.framework.launch.Framework;
@@ -41,14 +42,12 @@ public class FelixService {
 	@EventListener(ApplicationReadyEvent.class)
 	void startFramework() {
 		
-		//File absoluteBundleDir = new File(Paths.get("").toAbsolutePath().toString(),bundleDir);
-		
 		// Setup the properties required by Felix
-		Properties frameworkProps = felixProps.getProperties();
-		loadFelixProperties(frameworkProps);
+		// Properties frameworkProps = felixProps.getProperties();
+		HashMap<String, String> frameworkProps = felixProps.getHashMap();
 		
 		logger.info("***** Felix Framework STARTING *****");
-		logger.info("***** Felix Framework : Loading bundles from "+frameworkProps.get("felix.auto.deploy.dir")+" *****");
+		logger.info("***** Felix Framework : Loading initial bundles from ("+frameworkProps.get("felix.auto.deploy.dir")+") *****");
 
 	    addShutdownHook(framework,frameworkProps);
 	    
@@ -63,10 +62,12 @@ public class FelixService {
 	        // and auto-install/auto-start properties.
 	        AutoProcessor.process(frameworkProps, framework.getBundleContext());
 	        
-	        // Start the framework.
-	        framework.start();
 	        // Log Bundle Activations
 	        framework.getBundleContext().addBundleListener(new FelixBundleListener());
+	        
+	        // Start the framework.
+	        framework.start();
+	        
 	        // Wait for framework to stop -- then exit the VM.
 	        logger.info("***** Felix Framework STARTED : listening for shutdown hook *****");
 	        framework.waitForStop(0);
@@ -74,35 +75,16 @@ public class FelixService {
 	    }
 	    catch (Exception ex)
 	    {
-	    	logger.error("Could not create framework: " + ex);
+	    	logger.error("***** Felix Framework FAILED TO START: " + ex);
 	        ex.printStackTrace();
 	        System.exit(0);
 	    }
 	}
-	
-	private void loadFelixProperties(Properties frameworkProps) {
-	    Map<String, String> felixConfigMap = Main.loadConfigProperties();
-	    
-	    if(felixConfigMap != null) {
-	    	frameworkProps.putAll(felixConfigMap);
-	    }
-	    
-	    //configProps.setProperty(AUTO_DEPLOY_DIR_PROPERTY, absoluteBundleDir.toString());
-	    //configProps.setProperty(AUTO_DEPLOY_ACTION_PROPERTY, bundleActions);
-	    //configProps.setProperty(Constants.FRAMEWORK_STORAGE, cacheDir);
-	    
-	    if (frameworkProps.isEmpty())
-	    {
-	    	logger.error("***** FelixService : No felix.properties found. Initializing with EMPTY props *********");
-	    }
-	    Main.copySystemProperties(frameworkProps);
-		
-	}
 
-	private void addShutdownHook(Framework framework, Properties configProps) {
+	private void addShutdownHook(Framework framework, HashMap<String, String> frameworkProps) {
 		
 		// Add a shutdown hook to clean stop the framework.
-	    String enableHook = configProps.getProperty(SHUTDOWN_HOOK_PROP);
+	    String enableHook = frameworkProps.get(SHUTDOWN_HOOK_PROP);
 	    if ((enableHook == null) || !enableHook.equalsIgnoreCase("false"))
 	    {
 	        Runtime.getRuntime().addShutdownHook(new Thread("Felix Shutdown Hook") {

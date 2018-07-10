@@ -42,14 +42,15 @@ dependencies {
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
-	//framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.8.16"
 	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
-	//framework_bundles "org.apache.felix:org.apache.felix.http.jetty:3.4.8"
-	//framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
-	//framework_bundles "org.osgi:osgi.annotation:7.0.0"
-	//framework_bundles "org.osgi:osgi.extender:7.0.0"
-	//framework_bundles "org.osgi:osgi.cmpn:7.0.0"
-	//framework_bundles "org.osgi:osgi.core:7.0.0"
+	framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.9.2"
+	framework_bundles "org.apache.felix:org.apache.felix.coordinator:1.0.2"
+	framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
+	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
+	framework_bundles "org.apache.felix:org.apache.felix.framework:6.0.0"
+	framework_bundles "org.apache.felix:org.apache.felix.http.base:4.0.0"
+	framework_bundles "org.apache.felix:org.apache.felix.http.jetty:4.0.0"
+	framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
 	
 }
 

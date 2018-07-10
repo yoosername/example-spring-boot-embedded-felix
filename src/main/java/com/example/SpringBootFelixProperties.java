@@ -46,13 +46,14 @@ public class SpringBootFelixProperties implements FelixProperties {
 	private boolean loaded = false;
 	
 	public SpringBootFelixProperties() {
-		props = new Properties();
 	}
 	
 	@EventListener(ApplicationReadyEvent.class)
 	public void loadProps() {
 		
-		logger.info("Loading Spring properties file");
+		props = new Properties();
+		
+		logger.info("Loading Felix Properties from Spring properties file");
 		
 		if(autoDeployDir != null) {
 			props.put("felix.auto.deploy.dir", autoDeployDir);

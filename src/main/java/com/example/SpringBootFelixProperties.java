@@ -42,6 +42,12 @@ public class SpringBootFelixProperties implements FelixProperties {
 	@Value("${felix.fileinstall.bundles.updateWithListeners}")
 	private String fileInstallBundlesUpdateWithListeners;
 	
+	@Value("${felix.fileinstall.bundles.startTransient}")
+	private String fileInstallBundlesStartTransient;
+	
+	@Value("${felix.fileinstall.start.level}")
+	private String fileInstallBundlesStartLevel;	
+	
 	private Properties props;
 	private boolean loaded = false;
 	
@@ -76,6 +82,13 @@ public class SpringBootFelixProperties implements FelixProperties {
 		if(fileInstallBundlesUpdateWithListeners != null) {
 			props.put("felix.fileinstall.bundles.updateWithListeners", fileInstallBundlesUpdateWithListeners);
 		}
+		if(fileInstallBundlesStartTransient != null) {
+			props.put("felix.fileinstall.bundles.startTransient", fileInstallBundlesStartTransient);
+		}
+		if(fileInstallBundlesStartLevel != null) {
+			props.put("felix.fileinstall.start.level", fileInstallBundlesStartLevel);
+		}
+		
 		loaded = true;
 		
 	}

@@ -6,6 +6,7 @@ bin
 bundled_plugins
 felix_cache
 felix-cache
+plugins
 
 log4j2.out.xml
 

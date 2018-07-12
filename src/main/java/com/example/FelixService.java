@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Service;
 
 @Service	
@@ -29,7 +30,7 @@ public class FelixService {
 	private static final String SHUTDOWN_HOOK_PROP = "felix.shutdown.hook";
 	
 	@Autowired
-	SpringBootFelixProperties felixProps;
+	SpringBootConfig springConfig;
 	
 	private Framework framework = null;
 	
@@ -42,18 +43,18 @@ public class FelixService {
 	@EventListener(ApplicationReadyEvent.class)
 	void startFramework() {
 		
-		// Setup the properties required by Felix
-		// Properties frameworkProps = felixProps.getProperties();
-		HashMap<String, String> frameworkProps = felixProps.getHashMap();
+		// Get Felix properties from Spring Boot config
+		HashMap<String, String> frameworkProps = springConfig.getHashMap();
 		
-		logger.info("***** Felix Framework STARTING *****");
-		logger.info("***** Felix Framework : Loading initial bundles from ("+frameworkProps.get("felix.auto.deploy.dir")+") *****");
+		logger.info("----------------------------------------------------------");
+		logger.info("| Felix : Framework STARTING");
+		logger.info("| Felix : Loading bundles from ("+frameworkProps.get("felix.auto.deploy.dir")+")");
 
 	    addShutdownHook(framework,frameworkProps);
 	    
 	    try
 	    {
-	        // Create an instance and initialize the framework.
+	        // Create an instance and initialise the framework.
 	        FrameworkFactory factory = getFrameworkFactory();
 	        framework = factory.newFramework(frameworkProps);
 	        framework.init();
@@ -69,13 +70,15 @@ public class FelixService {
 	        framework.start();
 	        
 	        // Wait for framework to stop -- then exit the VM.
-	        logger.info("***** Felix Framework STARTED : listening for shutdown hook *****");
+	        logger.info("| Felix : Framework STARTED - listening for shutdown hook");
+	        logger.info("----------------------------------------------------------");
 	        framework.waitForStop(0);
 	        System.exit(0);
 	    }
 	    catch (Exception ex)
 	    {
-	    	logger.error("***** Felix Framework FAILED TO START: " + ex);
+	    	logger.error("| Felix : Framework FAILED TO START - Errors: " + ex);
+	    	logger.info("----------------------------------------------------------");
 	        ex.printStackTrace();
 	        System.exit(0);
 	    }
@@ -90,19 +93,21 @@ public class FelixService {
 	        Runtime.getRuntime().addShutdownHook(new Thread("Felix Shutdown Hook") {
 	            public void run()
 	            {
-	            	logger.info("***** Felix Framework STOPPING : shutdown hook detected*****");
+	            	logger.info("");
+	            	logger.info("| Felix : Framework STOPPING - shutdown hook detected");
+	            	logger.info("");
 	                try
 	                {
 	                    if (framework != null)
 	                    {
 	                    	framework.stop();
 	                    	framework.waitForStop(0);
-	                    	logger.info("***** Felix Framework STOPPED *****");
+	                    	logger.info("| Felix : Framework STOPPED");
 	                    }
 	                }
 	                catch (Exception ex)
 	                {
-	                    System.err.println("Error stopping framework: " + ex);
+	                    logger.error("| Felix : Error stopping framework - Errors: " + ex);
 	                }
 	            }
 	        });

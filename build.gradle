@@ -52,9 +52,9 @@ dependencies {
 	framework_bundles "org.apache.felix:org.apache.felix.http.jetty:4.0.0"
 	framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
 	
-	framework_bundles "org.apache.felix:org.apache.felix.gogo.command:1.0.2"
-	framework_bundles "org.apache.felix:org.apache.felix.gogo.runtime:1.1.0"
-	framework_bundles "org.apache.felix:org.apache.felix.gogo.shell:1.1.0"
+	//framework_bundles "org.apache.felix:org.apache.felix.gogo.command:1.0.2"
+	//framework_bundles "org.apache.felix:org.apache.felix.gogo.runtime:1.1.0"
+	//framework_bundles "org.apache.felix:org.apache.felix.gogo.shell:1.1.0"
 	
 	
 }

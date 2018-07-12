@@ -6,6 +6,10 @@
 ##
 ##############################################################################
 
+# Set FRAMEWORK_BUNDLES folder here
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+FRAMEWORK_BUNDLES_DIR="$DIR/../framework_bundles"
+
 # Attempt to set APP_HOME
 # Resolve links: $0 may be a link
 PRG="$0"
@@ -28,7 +32,7 @@ APP_NAME="example-spring-boot-embedded-felix"
 APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and EXAMPLE_SPRING_BOOT_EMBEDDED_FELIX_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS=""
+DEFAULT_JVM_OPTS="-Dfelix.auto.deploy.dir=$FRAMEWORK_BUNDLES_DIR"
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"

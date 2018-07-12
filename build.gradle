@@ -27,7 +27,7 @@ repositories {
 
 sourceCompatibility = 1.8
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 mainClassName = 'com.example.App'
 
 configurations {

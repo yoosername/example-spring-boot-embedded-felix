@@ -19,13 +19,13 @@ The idea is to be able to:
 
 
 ## Gradle
-- [] Generate custom start.sh script in output distribution
+- [ ] Generate custom start.sh script in output distribution
 - [x] Create Task to copy configurable OSGI Framework bundles into framework_bundles folder in distribution
-- [] Create an empty plugins folder in the distribution
-- [] Create zip and tar.gz distributions which include the ./framework_bundles and ./plugins folder plus start scripts.
+- [ ] Create an empty plugins folder in the distribution
+- [ ] Create zip and tar.gz distributions which include the ./framework_bundles and ./plugins folder plus start scripts.
 
 ## Additional Custom Bundles for initial framework load
-- [] PluginServices 
+- [ ] PluginServices 
 	- Services for turning plain JAR into OSGI bundle using BND tools
 	- OSGI bundle activation processing pipeline with hooks for custom processing e.g.
 		- Detecting and wiring Servlets, Filters via annotations
@@ -33,4 +33,4 @@ The idea is to be able to:
 		- Detecting and wiring custom @AuthRequired annotations etc
 		- Detecting static resources
 	
-- [] PluginFileWatcherService - watch a dir for new jars then use PluginServices to process it.
+- [ ] PluginFileWatcherService - watch a dir for new jars then use PluginServices to process it.

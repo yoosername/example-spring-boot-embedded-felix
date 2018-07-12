@@ -1,6 +1,7 @@
 .gradle
 /build/
 !gradle/
+temp
 
 bin
 bundled_plugins

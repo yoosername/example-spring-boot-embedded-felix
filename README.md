@@ -26,8 +26,8 @@ The idea is to be able to:
 
 ## Additional Custom Bundles for initial framework load
 - [ ] PluginServices 
-	- Services for turning plain JAR into OSGI bundle using BND tools
-	- OSGI bundle activation processing pipeline with hooks for custom processing e.g.
+	- [ ] Services for turning plain JAR into OSGI bundle using BND tools
+	- [ ] OSGI bundle activation processing pipeline with hooks for custom processing e.g.
 		- Detecting and wiring Servlets, Filters via annotations
 		- Detecting and wiring Spring MVC Controllers, RestControllers etc
 		- Detecting and wiring custom @AuthRequired annotations etc

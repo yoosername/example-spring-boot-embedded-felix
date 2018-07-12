@@ -14,12 +14,12 @@ buildscript {
 plugins {
 	id 'java' apply true
 	id 'eclipse' apply true
-	id 'application' apply true
 	id 'org.springframework.boot' version '2.0.3.RELEASE' apply true
 	id 'io.spring.dependency-management' version '1.0.5.RELEASE' apply true
+	id 'application' apply true
 }
 
-defaultTasks 'build','copyFrameworkBundles'
+//defaultTasks 'build','copyFrameworkBundles'
 
 repositories {
 	mavenCentral()
@@ -32,6 +32,10 @@ mainClassName = 'com.example.App'
 
 configurations {
     framework_bundles
+}
+
+bootJar {
+	launchScript()
 }
 
 dependencies {
@@ -55,17 +59,78 @@ dependencies {
 	
 }
 
-task copyFrameworkBundles(type: Copy) {
-    from configurations.framework_bundles
-    
-    def folder = new File("$buildDir/bundled_plugins")
+task createDistributionLayout {
+	
+	dependsOn clean
 
-	// If it doesn't exist
-	if( !folder.exists() ) {
-	  // Create all folders up-to and including B
-	  folder.mkdirs()
+	def distroFolder = new File("$buildDir/distro")
+    def binFolder = new File(distroFolder,"bin")
+    def libsFolder = new File(distroFolder,"lib")
+    def pluginsFolder = new File(distroFolder,"plugins")
+    def bundlesFolder = new File(distroFolder,"framework_bundles")
+
+	if( !distroFolder.exists() ) {
+	  distroFolder.mkdirs()
 	}
-
-    into folder
+	if( !binFolder.exists() ) {
+	  binFolder.mkdirs()
+	}
+	if( !libsFolder.exists() ) {
+	  libsFolder.mkdirs()
+	}
+	if( !pluginsFolder.exists() ) {
+	  pluginsFolder.mkdirs()
+	}
+	if( !bundlesFolder.exists() ) {
+	  bundlesFolder.mkdirs()
+	}
+	
 }
-copyFrameworkBundles.group = "custom"
+
+task addScriptsToDistribution(type: Copy) {
+
+	dependsOn createDistributionLayout
+	
+	def binFolder = new File("$buildDir/distro/bin")
+	from file("$projectDir/scripts")
+	into binFolder
+    
+}
+
+task addLibsToDistribution(type: Copy) {
+	
+	dependsOn bootJar, addScriptsToDistribution
+	
+	def fileName = "${jar.baseName}-${jar.version}"
+	def libsFolder = new File("$buildDir/distro/lib")
+	from file("$buildDir/libs/${fileName}.jar")
+  	into libsFolder
+    
+}
+
+task addFrameworkBundlesToDistribution(type: Copy) {
+	
+	dependsOn addLibsToDistribution
+	
+	def bundlesFolder = new File("$buildDir/distro/framework_bundles")
+	from configurations.framework_bundles
+    into bundlesFolder
+    
+}
+
+task zipDistribution(type: Zip) {
+  
+  dependsOn addFrameworkBundlesToDistribution
+  
+  def fileName = "${jar.baseName}-${jar.version}"
+  from file("$buildDir/distro")
+  include "**/*"
+  archiveName "${fileName}.zip"
+  
+}
+
+createDistributionLayout.group = "custom"
+addScriptsToDistribution.group = "custom"
+addLibsToDistribution.group = "custom"
+addFrameworkBundlesToDistribution.group = "custom"
+zipDistribution.group = "custom"

@@ -19,10 +19,10 @@ The idea is to be able to:
 
 
 ## Gradle
-- [ ] Generate custom start.sh script in output distribution
+- [x] Generate custom start.sh, start.bat script in output distribution
 - [x] Create Task to copy configurable OSGI Framework bundles into framework_bundles folder in distribution
-- [ ] Create an empty plugins folder in the distribution
-- [ ] Create zip and tar.gz distributions which include the ./framework_bundles and ./plugins folder plus start scripts.
+- [x] Generate an empty plugins folder in the distribution
+- [x] Generate zip and tar.gz distributions which include the ./framework_bundles and ./plugins folder plus start scripts.
 
 ## Additional Custom Bundles for initial framework load
 - [ ] PluginServices 

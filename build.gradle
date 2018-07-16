@@ -21,7 +21,7 @@ plugins {
 	id 'application' apply true
 }
 
-//defaultTasks 'build','copyFrameworkBundles'
+defaultTasks 'fatJarTar','fatJarZip'
 
 repositories {
 	mavenCentral()
@@ -57,8 +57,6 @@ dependencies {
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.command:1.0.2"
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.runtime:1.1.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.shell:1.1.0"
-	
-	
 }
 
 def distributionsCopySpec = copySpec {

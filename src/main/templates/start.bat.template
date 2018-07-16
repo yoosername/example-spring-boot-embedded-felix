@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set JARPATH=%APP_HOME%\lib\example-spring-boot-embedded-felix-0.0.1-SNAPSHOT.jar
+set JARPATH=%APP_HOME%\lib\example-spring-boot-embedded-felix-0.0.1.jar
 
 @rem Execute example-spring-boot-embedded-felix
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %EXAMPLE_SPRING_BOOT_EMBEDDED_FELIX_OPTS%  -jar "%JARPATH%" %CMD_LINE_ARGS%

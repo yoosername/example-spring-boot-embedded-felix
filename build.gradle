@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript {
 	ext {
         springBootVersion = '2.0.3.RELEASE'
@@ -59,78 +61,44 @@ dependencies {
 	
 }
 
-task createDistributionLayout {
-	
-	dependsOn clean
+def distributionsCopySpec = copySpec {
 
-	def distroFolder = new File("$buildDir/distro")
-    def binFolder = new File(distroFolder,"bin")
-    def libsFolder = new File(distroFolder,"lib")
-    def pluginsFolder = new File(distroFolder,"plugins")
-    def bundlesFolder = new File(distroFolder,"framework_bundles")
-
-	if( !distroFolder.exists() ) {
-	  distroFolder.mkdirs()
-	}
-	if( !binFolder.exists() ) {
-	  binFolder.mkdirs()
-	}
-	if( !libsFolder.exists() ) {
-	  libsFolder.mkdirs()
-	}
-	if( !pluginsFolder.exists() ) {
-	  pluginsFolder.mkdirs()
-	}
-	if( !bundlesFolder.exists() ) {
-	  bundlesFolder.mkdirs()
-	}
+	def distroName = "$name-$version";
 	
+    into(distroName) {
+    	from 'src/main/dist'
+        into('lib') {
+            from libsDir
+            include '*.jar' //copy the fat jar created by bootRepackage
+        }
+        into('framework_bundles') {
+            from configurations.framework_bundles
+        }
+        into('bin') {
+            from 'src/main/templates'
+		    include 'start.*.template'
+		    //expand(project.properties)
+			filter(ReplaceTokens, tokens: [
+				name: project.name,
+				extra_java_opts_property: project.name.replace('-','_').toUpperCase() + "_OPTS",
+				extra_java_opts: '-Dspring.config.location=$APP_HOME/conf/',
+				version: project.version,
+				generated: new Date().toString()
+			])
+			fileMode = 0766
+        }
+        into('conf') {
+            from "src/main/resources/application.properties" //custom start script based on startScripts task output
+        }
+        rename ("^start.sh.template\$","start.sh")
+        fileMode = 0755
+        rename ("^start.bat.template\$","start.bat")
+		
+    }
 }
 
-task addScriptsToDistribution(type: Copy) {
 
-	dependsOn createDistributionLayout
-	
-	def binFolder = new File("$buildDir/distro/bin")
-	from file("$projectDir/scripts")
-	into binFolder
-    
-}
-
-task addLibsToDistribution(type: Copy) {
-	
-	dependsOn bootJar, addScriptsToDistribution
-	
-	def fileName = "${jar.baseName}-${jar.version}"
-	def libsFolder = new File("$buildDir/distro/lib")
-	from file("$buildDir/libs/${fileName}.jar")
-  	into libsFolder
-    
-}
-
-task addFrameworkBundlesToDistribution(type: Copy) {
-	
-	dependsOn addLibsToDistribution
-	
-	def bundlesFolder = new File("$buildDir/distro/framework_bundles")
-	from configurations.framework_bundles
-    into bundlesFolder
-    
-}
-
-task zipDistribution(type: Zip) {
-  
-  dependsOn addFrameworkBundlesToDistribution
-  
-  def fileName = "${jar.baseName}-${jar.version}"
-  from file("$buildDir/distro")
-  include "**/*"
-  archiveName "${fileName}.zip"
-  
-}
-
-createDistributionLayout.group = "custom"
-addScriptsToDistribution.group = "custom"
-addLibsToDistribution.group = "custom"
-addFrameworkBundlesToDistribution.group = "custom"
-zipDistribution.group = "custom"
+task fatJarZip(type: Zip, dependsOn: 'assembleBootDist') { with distributionsCopySpec }
+task fatJarTar(type: Tar, dependsOn: 'assembleBootDist') { with distributionsCopySpec }
+fatJarZip.group = "custom"
+fatJarTar.group = "custom"

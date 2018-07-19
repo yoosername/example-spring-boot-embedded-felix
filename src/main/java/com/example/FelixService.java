@@ -23,6 +23,9 @@ public class FelixService {
 	private Framework framework = null;
 	
 	@Autowired
+	private SpringAwareFelixBundleListener springAwareFelixBundleListener;
+	
+	@Autowired
 	private SpringPropertiesHelper propertyHelper;
 
 	public FelixService() {
@@ -57,7 +60,7 @@ public class FelixService {
 	        AutoProcessor.process(frameworkProps, framework.getBundleContext());
 	        
 	        // Log Bundle Activations
-	        framework.getBundleContext().addBundleListener(new FelixBundleListener());
+	        framework.getBundleContext().addBundleListener(springAwareFelixBundleListener);
 	        
 	        // Start the framework.
 	        framework.start();

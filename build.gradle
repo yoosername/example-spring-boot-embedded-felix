@@ -92,7 +92,7 @@ def distributionsCopySpec = copySpec {
 			filter(ReplaceTokens, tokens: [
 				name: project.name,
 				extra_java_opts_property: project.name.replace('-','_').toUpperCase() + "_OPTS",
-				extra_java_opts: '-Dspring.config.location=$APP_HOME/conf/',
+				extra_java_opts: '-Dspring.config.location=$APP_HOME/conf/ -Dspring.profiles.active=prod',
 				version: project.version,
 				generated: new Date().toString()
 			])

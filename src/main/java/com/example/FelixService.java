@@ -1,26 +1,17 @@
 package com.example;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
 import org.apache.felix.framework.FrameworkFactory;
 import org.apache.felix.main.AutoProcessor;
-import org.apache.felix.main.Main;
-import org.osgi.framework.Constants;
 import org.osgi.framework.launch.Framework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Service;
 
 @Service	
@@ -29,11 +20,11 @@ public class FelixService {
 	private static final Logger logger = LoggerFactory.getLogger(FelixService.class);
 	private static final String SHUTDOWN_HOOK_PROP = "felix.shutdown.hook";
 	
-	@Autowired
-	SpringBootConfig springConfig;
-	
 	private Framework framework = null;
 	
+	@Autowired
+	private SpringPropertiesHelper propertyHelper;
+
 	public FelixService() {
 		// Start the Felix framework once all the beans have been created
 		// So that we get our property values injected and available
@@ -44,11 +35,13 @@ public class FelixService {
 	void startFramework() {
 		
 		// Get Felix properties from Spring Boot config
-		HashMap<String, String> frameworkProps = springConfig.getHashMap();
+		HashMap<String, String> frameworkProps = propertyHelper.getProps();
+		
 		
 		logger.info("----------------------------------------------------------");
+		logger.info(frameworkProps.toString());
 		logger.info("| Felix : Framework STARTING");
-		logger.info("| Felix : Loading bundles from ("+frameworkProps.get("felix.auto.deploy.dir")+")");
+		logger.info("| Felix : Loading bundles from ("+frameworkProps.get("felix.auto.deploy.dir").toString()+")");
 
 	    addShutdownHook(framework,frameworkProps);
 	    

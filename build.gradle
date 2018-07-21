@@ -78,7 +78,16 @@ def distributionsCopySpec = copySpec {
 	def distroName = "$name-$version";
 	
     into(distroName) {
-    	from 'src/main/dist'
+    
+    	new File(buildDir, "$distroName/plugins").mkdirs()
+    	new File(buildDir, "$distroName/bundled_plugins").mkdirs()
+    	new File(buildDir, "$distroName/conf").mkdirs()
+    	new File(buildDir, "$distroName/bin").mkdirs()
+    	new File(buildDir, "$distroName/lib").mkdirs()
+		
+		from file("${buildDir}/$distroName")
+    	into file("/")
+
         into('lib') {
             from libsDir
             include '*.jar' //copy the fat jar created by bootRepackage

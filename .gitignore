@@ -2,6 +2,9 @@
 /build/
 !gradle/
 temp
+.classpath
+.project
+org.eclipse*
 
 bin
 bundled_plugins
@@ -10,29 +13,3 @@ felix-cache
 plugins
 
 log4j2.out.xml
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-/out/
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-cache.lock

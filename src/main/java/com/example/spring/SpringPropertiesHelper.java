@@ -58,7 +58,7 @@ public class SpringPropertiesHelper {
 					filteredSources.addLast(s);
 				}
 				
-				logger.info(s.getName().toString());
+				logger.debug("Loaded property: " + s.getName().toString());
 				
 			});
 			for (PropertySource<?> propertySource : filteredSources ) {

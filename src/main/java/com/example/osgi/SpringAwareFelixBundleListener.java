@@ -10,8 +10,7 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import com.example.spring.DefaultDynamicControllerRegistry;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Component
 public class SpringAwareFelixBundleListener implements BundleListener {
@@ -20,24 +19,23 @@ public class SpringAwareFelixBundleListener implements BundleListener {
 	
 	@Autowired
 	private ApplicationContext appContext;
-	private DefaultDynamicControllerRegistry controllerRegistry;
+	@Autowired RequestMappingHandlerMapping requestMapping;
 	
 	public SpringAwareFelixBundleListener() {
 	}
 	
 	@EventListener(ApplicationStartedEvent.class)
 	public void init() {
-		controllerRegistry = new DefaultDynamicControllerRegistry();
-		controllerRegistry.setApplicationContext(appContext);
+		
 	}
 
 	@Override
 	public void bundleChanged(BundleEvent bundleEvent) {
 		
-		if(Bundle.ACTIVE == bundleEvent.getBundle().getState()) {
-			logger.info(String.format("Bundle %s started - autowiring components & controllers",bundleEvent.getBundle().getSymbolicName()));
-			//controllerRegistry.registerBeans(bundleEvent.getBundle());
-		}
+		//if(Bundle.ACTIVE == bundleEvent.getBundle().getState()) {
+		//	logger.info(String.format("Bundle %s started - autowiring components & controllers",bundleEvent.getBundle().getSymbolicName()));
+		//	registerBeans(bundleEvent.getBundle());
+		//}
 		logger.info(String.format(
 				"Bundle %s changed state to %s", 
 				bundleEvent.getBundle().getSymbolicName(), 
@@ -46,6 +44,12 @@ public class SpringAwareFelixBundleListener implements BundleListener {
 		
 	}
 	
+	private void registerBeans(Bundle bundle) {
+		// Find all beans
+		// Add them to the applicationContext
+		
+	}
+
 	private String getBundleStateAsString(int state) {
 		
 		switch(state) {

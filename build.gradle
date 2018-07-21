@@ -36,6 +36,10 @@ configurations {
     framework_bundles
 }
 
+configurations.framework_bundles{
+	transitive = false
+}
+
 eclipse.project {
     natures 'org.springsource.ide.eclipse.gradle.core.nature'
 }
@@ -57,7 +61,21 @@ dependencies {
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
-	//framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
+	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-core:3.0.0.M01"
+	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-io:3.0.0.M01"
+	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.4.RELEASE_1"
+	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-extensions:3.0.0.M01"
+	
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6"
+	framework_bundles "commons-logging:commons-logging:1.2"
+	
+	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
 	//framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.9.2"
 	//framework_bundles "org.apache.felix:org.apache.felix.scr:2.1.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
@@ -72,6 +90,20 @@ dependencies {
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.runtime:1.1.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.shell:1.1.0"
 }
+
+task cleanFrameworkBundlesToBuildFolder(type: Delete) {
+  delete "$buildDir/framework_bundles"
+  followSymlinks = false
+}
+cleanFrameworkBundlesToBuildFolder.group = "custom"
+
+task copyFrameworkBundlesToBuildFolder(type: Copy) {
+    into "$buildDir/framework_bundles"
+    from configurations.framework_bundles
+}
+copyFrameworkBundlesToBuildFolder.group = "custom"
+copyFrameworkBundlesToBuildFolder.dependsOn(cleanFrameworkBundlesToBuildFolder)
+//bootRun.dependsOn(copyFrameworkBundlesToBuildFolder)
 
 def distributionsCopySpec = copySpec {
 

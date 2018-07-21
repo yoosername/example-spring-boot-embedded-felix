@@ -1,4 +1,4 @@
-package com.example;
+package com.example.spring;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

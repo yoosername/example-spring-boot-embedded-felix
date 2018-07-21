@@ -1,4 +1,4 @@
-package com.example;
+package com.example.spring;
 
 import java.io.IOException;
 

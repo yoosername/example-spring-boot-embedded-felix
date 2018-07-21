@@ -1,4 +1,4 @@
-package com.example;
+package com.example.osgi;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleEvent;
@@ -10,6 +10,8 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import com.example.spring.DefaultDynamicControllerRegistry;
 
 @Component
 public class SpringAwareFelixBundleListener implements BundleListener {
@@ -34,7 +36,7 @@ public class SpringAwareFelixBundleListener implements BundleListener {
 		
 		if(Bundle.ACTIVE == bundleEvent.getBundle().getState()) {
 			logger.info(String.format("Bundle %s started - autowiring components & controllers",bundleEvent.getBundle().getSymbolicName()));
-			controllerRegistry.registerBeans(bundleEvent.getBundle());
+			//controllerRegistry.registerBeans(bundleEvent.getBundle());
 		}
 		logger.info(String.format(
 				"Bundle %s changed state to %s", 

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.osgi;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+
+import com.example.spring.SpringPropertiesHelper;
 
 @Service	
 public class FelixService {

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.spring;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -340,10 +339,6 @@ public class DefaultDynamicControllerRegistry extends DefaultDynamicBeanDefiniti
 
 	protected boolean scriptNotExists(String scriptLocation) {
 		return !getApplicationContext().getResource(scriptLocation).exists();
-	}
-
-	public void registerBeans(Bundle bundle) {
-		// TODO: Figure out here how to register beans from within the Bundle.		
 	}
 
 }

@@ -78,7 +78,7 @@ dependencies {
 	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
 	//framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.9.2"
 	//framework_bundles "org.apache.felix:org.apache.felix.scr:2.1.0"
-	//framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
+	framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.http.jetty:4.0.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
 	

@@ -1,6 +1,7 @@
 package com.example.plugin.osgi.spring;
 
-import com.example.plugin.osgi.spring.external.ApplicationContextPreProcessor;
+import java.util.List;
+
 import org.eclipse.gemini.blueprint.context.DelegatedExecutionOsgiBundleApplicationContext;
 import org.eclipse.gemini.blueprint.extender.OsgiApplicationContextCreator;
 import org.eclipse.gemini.blueprint.extender.support.ApplicationContextConfiguration;
@@ -12,10 +13,10 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.osgi.atlassian.NonValidatingOsgiBundleXmlApplicationContext;
+import org.springframework.osgi.example.NonValidatingOsgiBundleXmlApplicationContext;
 import org.springframework.util.ObjectUtils;
 
-import java.util.List;
+import com.example.plugin.osgi.spring.external.ApplicationContextPreProcessor;
 
 /**
  * Application context creator that will use a special application context that disables XML Schema validation

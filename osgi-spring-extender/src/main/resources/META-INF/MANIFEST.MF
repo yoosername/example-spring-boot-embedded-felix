@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: osgi-spring-extender
-Bundle-SymbolicName: osgi-spring-extender
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.example.plugin.osgi.spring.external
-Fragment-Host: org.eclipse.gemini.blueprint.extender
-Import-Package: *;version=!

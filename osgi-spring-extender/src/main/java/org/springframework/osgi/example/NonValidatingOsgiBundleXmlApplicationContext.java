@@ -1,5 +1,8 @@
 package org.springframework.osgi.example;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 import org.eclipse.gemini.blueprint.context.support.OsgiBundleXmlApplicationContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver;
@@ -8,9 +11,6 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.osgi.context.BundleContextAware;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 /**
  * Application context that initializes the bean definition reader to not validate via XML Schema.  Note that by

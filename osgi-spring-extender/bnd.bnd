@@ -1,0 +1,12 @@
+-dsannotations: 
+Export-Package: com.example.plugin.osgi.spring.external
+Bundle-Version: 0.0.1
+Private-Package: \
+	com.example.plugin.osgi.spring,\
+	org.springframework.osgi.context,\
+	org.springframework.osgi.example
+Fragment-Host: org.eclipse.gemini.blueprint.extender
+Import-Package: *
+Bundle-Name: osgi-bundle-extender
+Bundle-Description: Extends Eclipse Gemini Blueprint to use custom Spring scanner which scans \
+	OSGI bundles

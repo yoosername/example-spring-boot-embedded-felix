@@ -1,7 +1,18 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.0.0'
+  }
+}
+
 plugins {
 	id 'java' apply true
 	id 'eclipse' apply true
 }
+
+apply plugin: 'biz.aQute.bnd.builder'
 
 repositories {
 	mavenCentral()
@@ -20,7 +31,9 @@ eclipse.project {
 
 dependencies {
 
-	provided "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
-	provided "org.apache.felix:org.apache.felix.framework:6.0.0'"
-
+	compileOnly "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	compileOnly "org.apache.felix:org.apache.felix.framework:6.0.0"
+	compileOnly "org.apache.felix:org.osgi.core:1.4.0"
+	compileOnly "org.slf4j:slf4j-simple:1.7.25"
+	
 }

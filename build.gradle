@@ -64,7 +64,7 @@ dependencies {
 	compile('org.apache.felix:org.apache.felix.main:6.0.0')
 	
 	// Custom spring scanner
-	compile(project(":osgi-bundle-spring-scanner"))
+	compile(project(":osgi-spring-bundle-scanner"))
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	

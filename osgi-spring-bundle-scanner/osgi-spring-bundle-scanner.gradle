@@ -1,0 +1,34 @@
+plugins {
+	id 'java' apply true
+	id 'eclipse' apply true
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://maven.atlassian.com/content/repositories/atlassian-public/" }
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/plugins-release" }  
+}
+
+sourceCompatibility = 1.8
+group = 'com.example.plugins.osgi'
+version = '0.0.1'
+
+eclipse.project {
+    natures 'org.springsource.ide.eclipse.gradle.core.nature'
+}
+
+dependencies {
+
+		compile('org.apache.felix:org.apache.felix.framework:6.0.0')
+        compile("org.springframework:spring-core:5.0.7.RELEASE")
+        compile("org.springframework:spring-aop:5.0.7.RELEASE")
+        compile("org.springframework:spring-beans:5.0.7.RELEASE")
+        compile("org.springframework:spring-context:5.0.7.RELEASE")
+        compile("org.springframework.osgi:spring-osgi-core:1.2.1")
+        compile("commons-lang:commons-lang:2.6")
+        compile("com.google.guava:guava:25.1-jre")
+        
+        testCompile("junit:junit:4.12")
+        testCompile("org.mokito:mockito-all:1.10.19")
+}

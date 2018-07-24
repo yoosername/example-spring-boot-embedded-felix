@@ -1,5 +1,6 @@
-include "osgi-bundle-spring-scanner"
+include "osgi-spring-bundle-scanner"
 include "osgi-spring-extender"
+include "osgi-spring-wired-test-bundle"
 
 rootProject.name = 'example-spring-boot-embedded-felix'
 rootProject.children.each {project ->

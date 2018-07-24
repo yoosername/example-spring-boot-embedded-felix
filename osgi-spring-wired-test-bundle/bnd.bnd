@@ -1,0 +1,7 @@
+-dsannotations:
+Bundle-ManifestVersion: 2
+Export-Package: com.example.plugins
+Bundle-Version: 0.0.1
+Import-Package: *
+Bundle-Name: spring-wired-plugin-test-bundle
+Bundle-SymbolicName: spring-wired-plugin-test-bundle

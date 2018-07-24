@@ -25,6 +25,9 @@ defaultTasks 'fatJarTar','fatJarZip'
 
 repositories {
 	mavenCentral()
+	maven { url "https://maven.atlassian.com/content/repositories/atlassian-public/" }
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/plugins-release" }  
 }
 
 sourceCompatibility = 1.8
@@ -53,39 +56,51 @@ bootJar {
 }
 
 dependencies {
+	// Required for Spring Boot
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework:spring-webmvc")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile('org.apache.felix:org.apache.felix.framework:6.0.0')
 	compile('org.apache.felix:org.apache.felix.main:6.0.0')
 	
+	// Custom spring scanner
+	compile(project(":osgi-bundle-spring-scanner"))
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
+	// Required for Gemini Blueprint
 	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-core:3.0.0.M01"
 	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-io:3.0.0.M01"
 	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	//framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-extensions:3.0.0.M01"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6"
+	framework_bundles "javax.validation:validation-api:2.0.1.Final"
+	framework_bundles "javax.servlet:javax.servlet-api:4.0.1"
+	framework_bundles "commons-logging:commons-logging:1.2"
 	
+	// Required for Spring in bundles
 	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.4.RELEASE_1"
 	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.4.RELEASE_1"
 	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context-support:5.0.4.RELEASE_1"
 	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.4.RELEASE_1"
 	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.4.RELEASE_1"
-	framework_bundles "org.eclipse.gemini.blueprint:gemini-blueprint-extensions:3.0.0.M01"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-web:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-webmvc:5.0.4.RELEASE_1"
 	
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6"
-	framework_bundles "commons-logging:commons-logging:1.2"
-	
+	// Felix Fileinstall for monitoring a directory and installing / updating bundles
 	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
+	framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
+	
+	framework_bundles("com.atlassian.plugin:atlassian-spring-scanner-runtime:1.2.12")
+		
 	//framework_bundles "org.apache.felix:org.apache.felix.configadmin:1.9.2"
 	//framework_bundles "org.apache.felix:org.apache.felix.scr:2.1.0"
-	framework_bundles "org.apache.felix:org.apache.felix.eventadmin:1.5.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.http.jetty:4.0.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.http.servlet-api:1.1.2"
-	
 	//framework_bundles "org.apache.servicemix:servicemix-core:3.4.1"
 	//framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.commons-io:1.4_3"
-	//framework_bundles "org.apache.felix:org.apache.felix.webconsole:4.3.4"
-	
+	//framework_bundles "org.apache.felix:org.apache.felix.webconsole:4.3.4"	
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.command:1.0.2"
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.runtime:1.1.0"
 	//framework_bundles "org.apache.felix:org.apache.felix.gogo.shell:1.1.0"

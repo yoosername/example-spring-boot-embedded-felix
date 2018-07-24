@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd"
+       default-autowire="autodetect">
+
+    <!-- Uses a cached thread pool instead of creating a new thread for every context creation -->
+    <bean id="taskExecutor" class="com.example.plugin.osgi.spring.ThreadPoolAsyncTaskExecutor"
+          destroy-method="shutdown"/>
+
+    <!-- Creates an application context that disables XML Schema validation -->
+    <bean id="applicationContextCreator" class="com.example.plugin.osgi.spring.NonValidatingOsgiApplicationContextCreator">
+        <constructor-arg>
+            <osgi:list id="applicationContextPreProcessors"
+                       interface="com.example.plugin.osgi.spring.external.ApplicationContextPreProcessor"
+                       cardinality="0..N"/>
+        </constructor-arg>
+    </bean>
+
+
+</beans>

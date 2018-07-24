@@ -1,1 +1,6 @@
+include "osgi-bundle-spring-scanner"
+
 rootProject.name = 'example-spring-boot-embedded-felix'
+rootProject.children.each {project ->
+	project.buildFileName = "${project.name}.gradle"
+}

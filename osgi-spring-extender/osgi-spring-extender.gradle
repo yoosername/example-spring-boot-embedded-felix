@@ -1,0 +1,26 @@
+plugins {
+	id 'java' apply true
+	id 'eclipse' apply true
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://maven.atlassian.com/content/repositories/atlassian-public/" }
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/plugins-release" }  
+}
+
+sourceCompatibility = 1.8
+group = 'com.example.plugins.osgi'
+version = '0.0.1'
+
+eclipse.project {
+    natures 'org.springsource.ide.eclipse.gradle.core.nature'
+}
+
+dependencies {
+
+	provided "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	provided "org.apache.felix:org.apache.felix.framework:6.0.0'"
+
+}

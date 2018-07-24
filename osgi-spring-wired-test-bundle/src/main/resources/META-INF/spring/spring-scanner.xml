@@ -5,6 +5,6 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
     	http://www.example.com/schema/osgi-bundle-scanner
-    	http://www.example.com/schema/osgi-bundle-scanner.xsd">    
+    	http://www.example.com/schema/osgi-bundle-scanner/osgi-bundle-scanner.xsd">    
     <osgi-bundle-scanner:scan-indexes />
 </beans>

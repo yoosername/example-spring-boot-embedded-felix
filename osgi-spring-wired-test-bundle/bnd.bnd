@@ -2,6 +2,9 @@
 Bundle-ManifestVersion: 2
 Export-Package: com.example.plugins
 Bundle-Version: 0.0.1
-Import-Package: *
 Bundle-Name: spring-wired-plugin-test-bundle
 Bundle-SymbolicName: spring-wired-plugin-test-bundle
+Import-Package: \
+	com.example.plugin.spring.scanner.*, \
+	com.example.plugin.osgi.spring.external.*, \
+	org.springframework.beans.factory.xml.*

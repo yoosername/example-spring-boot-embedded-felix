@@ -1,16 +1,13 @@
-package org.springframework.osgi.example;
+package org.eclipse.gemini.blueprint.context.support;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
+import org.eclipse.gemini.blueprint.context.BundleContextAware;
 import org.eclipse.gemini.blueprint.context.support.OsgiBundleXmlApplicationContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.ParameterNameDiscoverer;
-import org.springframework.osgi.context.BundleContextAware;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
  * Application context that initializes the bean definition reader to not validate via XML Schema.  Note that by
@@ -19,10 +16,9 @@ import org.springframework.osgi.context.BundleContextAware;
  *
  * This class exists in the same package as the parent so the log messages won't get confused as the parent class
  * logs against the instance class.
- *
- * @since 2.5.0
  */
 public class NonValidatingOsgiBundleXmlApplicationContext extends OsgiBundleXmlApplicationContext {
+	
     public NonValidatingOsgiBundleXmlApplicationContext(final String[] configLocations) {
         super(configLocations);
     }
@@ -30,36 +26,28 @@ public class NonValidatingOsgiBundleXmlApplicationContext extends OsgiBundleXmlA
     @Override
     protected void initBeanDefinitionReader(final XmlBeanDefinitionReader beanDefinitionReader) {
         super.initBeanDefinitionReader(beanDefinitionReader);
+        
+        // Don't validate XML.
         beanDefinitionReader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_NONE);
+        // Because not validating this is required
         beanDefinitionReader.setNamespaceAware(true);
     }
 
     @Override
     protected void customizeBeanFactory(final DefaultListableBeanFactory beanFactory) {
-        if (Boolean.getBoolean("atlassian.disable.spring.cache.bean.metadata")) {
-            beanFactory.setCacheBeanMetadata(false);
-        }
-        if (!Boolean.getBoolean("atlassian.enable.spring.parameter.name.discoverer")) {
-            beanFactory.setParameterNameDiscoverer(new ParameterNameDiscoverer() {
-                @Override
-                public String[] getParameterNames(final Method method) {
-                    // We never discover parameter names (for now)
-                    return null;
-                }
-
-                @Override
-                public String[] getParameterNames(final Constructor<?> ctor) {
-                    // We never discover parameter names (for now)
-                    return null;
-                }
-            });
-        }
         super.customizeBeanFactory(beanFactory);
-        beanFactory.addBeanPostProcessor(new ShimSpringDmBundleContextAwareBeanPostProcessor());
+        
+        
+        // TODO: Maybe take this back out?!?!?
+        beanFactory.createBean(RequestMappingHandlerMapping.class);
+        beanFactory.addBeanPostProcessor(new BundleContextAwareBeanPostProcessor());
         beanFactory.setAutowireCandidateResolver(new QualifierAnnotationAutowireCandidateResolver());
     }
 
-    private class ShimSpringDmBundleContextAwareBeanPostProcessor implements BeanPostProcessor {
+    /**
+     * If bean is BundleContextAware then we need to inject the bundle context here.
+     */
+    private class BundleContextAwareBeanPostProcessor implements BeanPostProcessor {
         @Override
         public Object postProcessBeforeInitialization(final Object bean, final String beanName) throws BeansException {
             // Inject the BundleContext into beans which mark themselves as needing it.

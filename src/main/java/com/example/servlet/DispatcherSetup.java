@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Configuration
 public class DispatcherSetup extends DispatcherServletAutoConfiguration {
@@ -19,13 +20,19 @@ public class DispatcherSetup extends DispatcherServletAutoConfiguration {
 	}
 	
 	@Bean
+    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+       RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+       return mapping;
+    }
+	
+	@Bean
 	public ServletContextInitializer contextInitializer() {
 	    return new ServletContextInitializer() {
 
 	        @Override
 	        public void onStartup(ServletContext servletContext)
 	                throws ServletException {
-	                servletContext.setInitParameter("contextClass","org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext");
+	                servletContext.setInitParameter("contextClass","org.eclipse.gemini.blueprint.context.support.OsgiBundleXmlWebApplicationContext");
 	        }
 	    };
 	}

@@ -1,4 +1,4 @@
-<xsd:schema 
+<xsd:schema
 	targetNamespace="http://www.example.com/schema/osgi-bundle-scanner" 
 	elementFormDefault="qualified" 
 	attributeFormDefault="unqualified" 
@@ -9,11 +9,11 @@
 	
 	    <xsd:import 
 	    	namespace="http://www.springframework.org/schema/beans" 
-	    	schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"/>
+	    	schemaLocation="http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"/>
 	    	
 	    <xsd:import 
 	    	namespace="http://www.springframework.org/schema/tool" 
-	    	schemaLocation="http://www.springframework.org/schema/tool/spring-tool-2.5.xsd"/>
+	    	schemaLocation="http://www.springframework.org/schema/tool/spring-tool-4.3.xsd"/>
 	    	
 	    <xsd:element name="scan-indexes">
 	        <xsd:annotation>

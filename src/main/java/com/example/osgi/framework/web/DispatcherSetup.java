@@ -3,27 +3,38 @@ package com.example.osgi.framework.web;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+
+
 @Configuration
 public class DispatcherSetup extends DispatcherServletAutoConfiguration {
 	
-	@Bean
-	public DispatcherServlet dispatcherServlet() {
-	    return new DispatcherServlet();
-	}
+	private static final Logger logger = LoggerFactory.getLogger(DispatcherSetup.class);
 	
 	@Bean
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-       RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-       return mapping;
-    }
+	public DispatcherServlet dispatcherServlet() {
+		
+	    return new DispatcherServlet() {
+	    	
+			@Override
+			protected void onRefresh(ApplicationContext context) {
+				// TODO Auto-generated method stub
+				super.onRefresh(context);
+				DispatcherSetup.logger.info("SERVLET CONTEXT REFRESHED AS " + context.toString());
+			}
+	    	
+	    };
+	}
 	
 	@Bean
 	public ServletContextInitializer contextInitializer() {
@@ -32,7 +43,8 @@ public class DispatcherSetup extends DispatcherServletAutoConfiguration {
 	        @Override
 	        public void onStartup(ServletContext servletContext)
 	                throws ServletException {
-	                servletContext.setInitParameter("contextClass","org.eclipse.gemini.blueprint.context.support.OsgiBundleXmlWebApplicationContext");
+	        	servletContext.setInitParameter("contextClass","com.example.osgi.framework.web.OsgiBundleXmlWebApplicationContext");
+	        	DispatcherSetup.logger.info("NEW SERVLET CONTEXT INIALIZED AS = " + servletContext.toString());
 	        }
 	    };
 	}
@@ -49,6 +61,8 @@ public class DispatcherSetup extends DispatcherServletAutoConfiguration {
 	            dispatcherServlet(), 
 	            "/dispatch/*"
 	    );
+	    
+	    //registration.addInitParameter("contextClass","com.example.osgi.framework.web.OsgiBundleXmlWebApplicationContext");
 
 	    registration.setName(
 	    		DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME

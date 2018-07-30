@@ -33,7 +33,7 @@ repositories {
 sourceCompatibility = 1.8
 group = 'com.example.osgi.framework'
 version = '0.0.1'
-mainClassName = 'com.example.osgi.framework.boot.App'
+mainClassName = 'com.example.osgi.framework.App'
 
 configurations {
     framework_bundles

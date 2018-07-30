@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -17,9 +16,8 @@ public class SpringAwareFelixBundleListener implements BundleListener {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SpringAwareFelixBundleListener.class);
 	
-	@Autowired
-	private ApplicationContext appContext;
-	@Autowired RequestMappingHandlerMapping requestMapping;
+	@Autowired 
+	RequestMappingHandlerMapping requestMapping;
 	
 	public SpringAwareFelixBundleListener() {
 	}
@@ -31,22 +29,12 @@ public class SpringAwareFelixBundleListener implements BundleListener {
 
 	@Override
 	public void bundleChanged(BundleEvent bundleEvent) {
-		
-		//if(Bundle.ACTIVE == bundleEvent.getBundle().getState()) {
-		//	logger.info(String.format("Bundle %s started - autowiring components & controllers",bundleEvent.getBundle().getSymbolicName()));
-		//	registerBeans(bundleEvent.getBundle());
-		//}
+
 		logger.info(String.format(
 				"Bundle %s changed state to %s", 
 				bundleEvent.getBundle().getSymbolicName(), 
 				getBundleStateAsString(bundleEvent.getBundle().getState()
 		)));
-		
-	}
-	
-	private void registerBeans(Bundle bundle) {
-		// Find all beans
-		// Add them to the applicationContext
 		
 	}
 

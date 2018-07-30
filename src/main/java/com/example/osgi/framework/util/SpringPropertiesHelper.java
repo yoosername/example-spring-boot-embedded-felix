@@ -63,7 +63,7 @@ public class SpringPropertiesHelper {
 			});
 			for (PropertySource<?> propertySource : filteredSources ) {
 				if (propertySource instanceof EnumerablePropertySource) {
-					for (String key : ((EnumerablePropertySource) propertySource).getPropertyNames()) {
+					for (String key : ((EnumerablePropertySource<?>) propertySource).getPropertyNames()) {
 						props.put(key, (String)propertySource.getProperty(key));
 					}
 				}

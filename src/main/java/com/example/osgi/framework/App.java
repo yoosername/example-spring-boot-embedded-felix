@@ -1,4 +1,4 @@
-package com.example.osgi.framework.boot;
+package com.example.osgi.framework;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

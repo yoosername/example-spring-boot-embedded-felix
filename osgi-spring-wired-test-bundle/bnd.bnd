@@ -6,6 +6,10 @@ Bundle-Name: spring-wired-plugin-test-bundle
 Bundle-SymbolicName: spring-wired-plugin-test-bundle
 Import-Package: \
 	com.example.osgi.spring.scanner.*,\
-	com.example.osgi.spring.extender.*,\
+	com.example.osgi.spring.scanner.annotation.export.*,\
+	com.example.osgi.spring.scanner.annotation.import.*,\
+	com.example.osgi.spring.scanner.extention.*,\
+	com.example.osgi.spring.scanner.processor.*,\
+	com.example.osgi.spring.scanner.util.*,\
 	org.springframework.beans.factory.xml.*,\
 	*

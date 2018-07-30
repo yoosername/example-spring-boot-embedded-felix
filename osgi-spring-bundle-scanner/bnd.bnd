@@ -5,8 +5,10 @@ Export-Package: \
 	com.example.osgi.spring.scanner.annotation.imports,\
 	com.example.osgi.spring.scanner.extension,\
 	com.example.osgi.spring.scanner.processor,\
-	com.example.osgi.spring.scanner.util
+	com.example.osgi.spring.scanner.util, \
+	com.example.osgi.spring.scanner
 Bundle-Version: 0.0.1
+Fragment-Host: org.eclipse.gemini.blueprint.extender
 Import-Package: \
 	com.example.osgi.spring.extender.external.*,\
 	org.springframework.beans.factory.xml.*,\

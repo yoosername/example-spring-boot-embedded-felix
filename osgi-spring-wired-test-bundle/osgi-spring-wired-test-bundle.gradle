@@ -22,7 +22,7 @@ repositories {
 }
 
 sourceCompatibility = 1.8
-group = 'com.example.plugins'
+group = 'com.example.osgi.plugins'
 version = '0.0.1'
 
 eclipse.project {
@@ -35,26 +35,27 @@ configurations {
 
 dependencies {
 	
-	compile project(":osgi-spring-bundle-scanner")
+	compileOnly project(":osgi-spring-bundle-scanner")
 	//extraLibs project(":osgi-spring-bundle-scanner")
 	
 	//compile "org.eclipse.gemini.blueprint:gemini-blueprint-core:3.0.0.M01"
 	//compile "org.eclipse.gemini.blueprint:gemini-blueprint-io:3.0.0.M01"
-	compile "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	compileOnly "org.eclipse.gemini.blueprint:gemini-blueprint-extender:3.0.0.M01"
+	compileOnly "org.springframework:spring-webmvc:5.0.7.RELEASE"
 	
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.4.RELEASE_1"
-	compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-web:5.0.4.RELEASE_1"
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-webmvc:5.0.4.RELEASE_1"
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.4.RELEASE_1"
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.4.RELEASE_1"
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.4.RELEASE_1"
-	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.4.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-web:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-webmvc:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.7.RELEASE_1"
+	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.7.RELEASE_1"
 	//compile "org.eclipse.gemini.blueprint:gemini-blueprint-extensions:3.0.0.M01"
 	
 	//compile "org.apache.servicemix.bundles:org.apache.servicemix.bundles.aopalliance:1.0_6"
 	//compile "commons-logging:commons-logging:1.2"
 	
-	//compile "org.osgi:org.osgi.framework:1.9.0"
+	compile "org.osgi:org.osgi.framework:1.9.0"
 
 }
 

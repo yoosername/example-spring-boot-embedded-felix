@@ -8,14 +8,14 @@
        default-autowire="default">
 
     <!-- Uses a cached thread pool instead of creating a new thread for every context creation -->
-    <bean id="taskExecutor" class="com.example.plugin.osgi.spring.ThreadPoolAsyncTaskExecutor"
+    <bean id="taskExecutor" class="com.example.osgi.spring.extender.ThreadPoolAsyncTaskExecutor"
           destroy-method="shutdown"/>
 
     <!-- Creates an application context that disables XML Schema validation -->
-    <bean id="applicationContextCreator" class="com.example.plugin.osgi.spring.NonValidatingOsgiApplicationContextCreator">
+    <bean id="applicationContextCreator" class="com.example.osgi.spring.extender.NonValidatingOsgiApplicationContextCreator">
         <constructor-arg>
             <osgi:list id="applicationContextPreProcessors"
-                       interface="com.example.plugin.osgi.spring.external.ApplicationContextPreProcessor"
+                       interface="com.example.osgi.spring.extender.external.ApplicationContextPreProcessor"
                        cardinality="0..N"/>
         </constructor-arg>
     </bean>

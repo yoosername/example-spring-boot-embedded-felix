@@ -1,17 +1,16 @@
 -dsannotations: 
 Bundle-ManifestVersion: 2
 Export-Package: \
-	com.example.plugin.spring.scanner.annotation.export,\
-	com.example.plugin.spring.scanner.annotation.imports,\
-	com.example.plugin.spring.scanner.extension,\
-	com.example.plugin.spring.scanner.processor,\
-	com.example.plugin.spring.scanner.util, \
-	com.example.plugin.spring.scanner
+	com.example.osgi.spring.scanner.annotation.export,\
+	com.example.osgi.spring.scanner.annotation.imports,\
+	com.example.osgi.spring.scanner.extension,\
+	com.example.osgi.spring.scanner.processor,\
+	com.example.osgi.spring.scanner.util
 Bundle-Version: 0.0.1
 Import-Package: \
-	com.example.plugin.spring.scanner.*, \
-	com.example.plugin.osgi.spring.external.*, \
-	org.springframework.beans.factory.xml.*
+	com.example.osgi.spring.extender.external.*,\
+	org.springframework.beans.factory.xml.*,\
+	*
 Bundle-Name: osgi-spring-bundle-scanner
 Bundle-Description: Provides custom Spring scanner which scans OSGI bundles for beans and preprocesses \
 	for common annotations

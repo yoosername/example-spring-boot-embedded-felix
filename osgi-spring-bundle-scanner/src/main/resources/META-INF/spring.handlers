@@ -1,1 +1,1 @@
-http\://www.example.com/schema/osgi-bundle-scanner=com.example.plugin.spring.scanner.extension.OSGIBundleScannerNamespaceHandler
+http\://www.example.com/schema/osgi-bundle-scanner=com.example.osgi.spring.scanner.extension.OSGIBundleScannerNamespaceHandler

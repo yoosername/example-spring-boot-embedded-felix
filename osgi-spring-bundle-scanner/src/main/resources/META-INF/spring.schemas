@@ -1,1 +1,1 @@
-http\://www.example.com/schema/osgi-bundle-scanner/osgi-bundle-scanner.xsd=com/example/plugin/spring/scanner/osgi-bundle-scanner.xsd
+http\://www.example.com/schema/osgi-bundle-scanner/osgi-bundle-scanner.xsd=com/example/osgi/spring/scanner/osgi-bundle-scanner.xsd

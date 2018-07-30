@@ -1,2 +1,2 @@
-com.example.plugin.spring.scanner.processor.ComponentAnnotationProcessor
-com.example.plugin.spring.scanner.processor.ComponentImportAnnotationProcessor
+com.example.osgi.spring.scanner.processor.ComponentAnnotationProcessor
+com.example.osgi.spring.scanner.processor.ComponentImportAnnotationProcessor

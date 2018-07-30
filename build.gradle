@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 buildscript {
 	ext {
         springBootVersion = '2.0.3.RELEASE'
-        springDependencyManagementVersion = '1.0.5.RELEASE'
+        springDependencyManagementVersion = '1.0.6.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -17,7 +17,7 @@ plugins {
 	id 'java' apply true
 	id 'eclipse' apply true
 	id 'org.springframework.boot' version '2.0.3.RELEASE' apply true
-	id 'io.spring.dependency-management' version '1.0.5.RELEASE' apply true
+	id 'io.spring.dependency-management' version '1.0.6.RELEASE' apply true
 	id 'application' apply true
 }
 
@@ -31,9 +31,9 @@ repositories {
 }
 
 sourceCompatibility = 1.8
-group = 'com.example'
+group = 'com.example.osgi.framework'
 version = '0.0.1'
-mainClassName = 'com.example.App'
+mainClassName = 'com.example.osgi.framework.boot.App'
 
 configurations {
     framework_bundles
@@ -62,9 +62,9 @@ bootJar {
 
 dependencies {
 	// Required for Spring Boot
-	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework:spring-webmvc")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("org.springframework.boot:spring-boot-starter-web:2.0.3.RELEASE")
+	compile "org.springframework:spring-webmvc:5.0.7.RELEASE"
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:2.0.3.RELEASE")
 	compile('org.apache.felix:org.apache.felix.framework:6.0.0')
 	compile('org.apache.felix:org.apache.felix.main:6.0.0')
 	
@@ -91,14 +91,14 @@ dependencies {
 	framework_bundles "commons-logging:commons-logging:1.2"
 	
 	// Required for Spring in bundles
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context-support:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-web:5.0.4.RELEASE_1"
-	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-webmvc:5.0.4.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-aop:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-beans:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-context-support:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-core:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-expression:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-web:5.0.7.RELEASE_1"
+	framework_bundles "org.apache.servicemix.bundles:org.apache.servicemix.bundles.spring-webmvc:5.0.7.RELEASE_1"
 	
 	// Felix Fileinstall for monitoring a directory and installing / updating bundles
 	framework_bundles "org.apache.felix:org.apache.felix.fileinstall:3.6.4"
